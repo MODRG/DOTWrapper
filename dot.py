@@ -26,19 +26,20 @@ class dot:
     # according to the platform detected at run time
     def __init__(self):
         
-        systemName = platform.system()
+        self.systemName = platform.system()
+        
         # Load the shared library on Linux
-        if ( systemName == 'Linux' ):
+        if ( self.systemName == 'Linux' ):
             self.dotlib = ct.cdll.LoadLibrary("libDOT2.so")
             
         # Load the shared library on Windows
-        elif ( systemName == 'Windows' ):
+        elif ( self.systemName == 'Windows' ):
             self.dotlib = ct.windll.LoadLibrary("DOT.dll")
             
         # Else throw an exception to indicate that no supported
         # platform was found
         else :
-            raise ValueError( 'Unsupported Operating System: '+systemName )
+            raise ValueError( 'Unsupported Operating System: '+self.systemName )
 
     # ---------------------------------------------------------
     # The DOT wrapper itself - called by the user to start the
@@ -86,7 +87,12 @@ class dot:
         NGMAX   = ct.c_int()
         IERR    = ct.c_int()
 
-        self.dotlib.dot510_(B(NDV), B(NCON), B(METHOD), B(NRWK), B(NRWKMN), B(NRIWD), B(NRWKMX), B(NRIWK), B(NSTORE), B(NGMAX), B(XL), B(XU), B(MAXINT), B(IERR))
+        if ( self.systemName == 'Linux' ):
+            self.dotlib.dot510_(B(NDV), B(NCON), B(METHOD), B(NRWK), B(NRWKMN), B(NRIWD), B(NRWKMX), B(NRIWK), B(NSTORE), B(NGMAX), B(XL), B(XU), B(MAXINT), B(IERR))    
+        elif ( self.systemName == 'Windows' ):
+            self.dotlib.DOT510(B(NDV), B(NCON), B(METHOD), B(NRWK), B(NRWKMN), B(NRIWD), B(NRWKMX), B(NRIWK), B(NSTORE), B(NGMAX), B(XL), B(XU), B(MAXINT), B(IERR))
+        else :
+            raise ValueError( 'Unsupported Operating System: '+self.systemName )
 
         ctRWK  = ct.c_double * NRWKMX.value
         ctIWK  = ct.c_int * NRIWK.value
@@ -95,7 +101,12 @@ class dot:
 
         # Call DOT itself
         while (True):
-            self.dotlib.dot_(B(INFO),B(METHOD),B(IPRINT), B(NDV),  B(NCON), B(X), B(XL), B(XU), B(OBJ), B(MINMAX), B(G), B(RPRM), B(IPRM), B(WK), B(NRWKMX), B(IWK), B(NRIWK))
+            if ( self.systemName == 'Linux' ):
+                self.dotlib.dot_(B(INFO),B(METHOD),B(IPRINT), B(NDV),  B(NCON), B(X), B(XL), B(XU), B(OBJ), B(MINMAX), B(G), B(RPRM), B(IPRM), B(WK), B(NRWKMX), B(IWK), B(NRIWK))
+            elif ( self.systemName == 'Windows' ):
+                self.dotlib.DOT(B(INFO),B(METHOD),B(IPRINT), B(NDV),  B(NCON), B(X), B(XL), B(XU), B(OBJ), B(MINMAX), B(G), B(RPRM), B(IPRM), B(WK), B(NRWKMX), B(IWK), B(NRIWK))
+            else :
+                raise ValueError( 'Unsupported Operating System: '+self.systemName )
             if ( INFO.value == 0 ) :
                 break
             else:
