@@ -3,10 +3,12 @@
 # Will work on both Linux and Windows platforms.  There 
 # should not be any need to change this file.
 # ---------------------------------------------------------
-import platform
-import numpy as nm
 import ctypes as ct
+import platform
 from ctypes import byref as B
+
+import numpy as nm
+
 
 # Define the Python wrapper to the DOT shared library as a Python class
 class dot:
@@ -34,7 +36,7 @@ class dot:
             
         # Load the shared library on Windows
         elif ( self.systemName == 'Windows' ):
-            self.dotlib = ct.windll.LoadLibrary(r"C:\Program Files (x86)\vrand\dot6.0\Win64\DOT.dll")
+            self.dotlib = ct.windll.LoadLibrary("DOT.dll")
             
         # Else throw an exception to indicate that no supported
         # platform was found
