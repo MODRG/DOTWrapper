@@ -34,7 +34,7 @@ class dot:
             
         # Load the shared library on Windows
         elif ( self.systemName == 'Windows' ):
-            self.dotlib = ct.windll.LoadLibrary("DOT.dll")
+            self.dotlib = ct.windll.LoadLibrary(r"C:\Program Files (x86)\vrand\dot6.0\Win64\DOT.dll")
             
         # Else throw an exception to indicate that no supported
         # platform was found

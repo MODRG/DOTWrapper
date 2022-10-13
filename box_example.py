@@ -5,7 +5,7 @@
 # Gerhard Venter
 # August 21, 2019
 #------------------------------------------------------------------------------
-import dot as dot
+import dot2 as dot
 import math as m
 import numpy as nm
 
