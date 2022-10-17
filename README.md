@@ -22,7 +22,7 @@ Before running the code, please make sure that you have DOT installed on your co
 1. Set the VRAND_AUT environment variable to point to the VR&D license file and the LD_LIBRARY_PATH environment variable to point to the location of your DOT shared library.  For example, on Linux:
 ```
 export VRAND_AUT=/opt/vrand/licenses/vrand.lic
-export LD_LIBRARY_PATH=/opt/vrand/dot6.0
+export LD_LIBRARY_PATH=/opt/vrand/dot6.0/Linux64/
 ```
 On Windows, you need to define a new environment variable for VRAND_AUT and add the path to your DOT shared library (.dll) to your current PATH environment variable.  It is a good idea to add this to the end of your current PATH environment variable. An in-depth guide for windows users is given further below.
 
