@@ -7,7 +7,7 @@ import ctypes as ct
 import platform
 from ctypes import byref as B
 
-import numpy as nm
+import numpy as np
 
 
 # Define the Python wrapper to the DOT shared library as a Python class
@@ -19,9 +19,9 @@ class dot:
     nPrint  = 0
     nMinMax = 0
     nMaxInt = 20000000
-    nmParam = nm.empty(1, float)
-    nmRPRM  = nm.zeros(20, float)
-    nmIPRM  = nm.zeros(20, int)
+    nmParam = np.empty(1, float)
+    nmRPRM  = np.zeros(20, float)
+    nmIPRM  = np.zeros(20, int)
 
     # ---------------------------------------------------------
     # Initialize the class - this loads the DOT shared library
@@ -115,7 +115,7 @@ class dot:
                 self.evaluate(X, OBJ, G, self.nmParam)
 
         # Process the DOT output into a return value array
-        rslt = nm.empty( 2+nDvar, float)
+        rslt = np.empty( 2+nDvar, float)
         rslt[0] = OBJ.value
         rslt[1] = 0.0
         if len(G) > 0 :

@@ -7,7 +7,7 @@
 #------------------------------------------------------------------------------
 import math as m
 
-import numpy as nm
+import numpy as np
 
 import dot as dot
 
@@ -57,9 +57,9 @@ nCons = 1  # Number of constraints
 
 # Create numpy arrays for the initial values and lower and upper bounds of the
 # design variables
-x  = nm.empty(nDvar, float)
-xl = nm.empty(nDvar, float)
-xu = nm.empty(nDvar, float)
+x  = np.empty(nDvar, float)
+xl = np.empty(nDvar, float)
+xu = np.empty(nDvar, float)
 
 # Set the initial values and upper and lower bounds for the design variables
 for i in range(nDvar):
