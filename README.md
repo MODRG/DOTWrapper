@@ -5,15 +5,17 @@ This repository contains all the source code and an example problem to perform o
 This project was setup to work for both Linux and Windows environments.  The corresponding DOT library is required and a few environment variables should be set when using the wrapper.
 
 # Requirements
-- The DOT optimizer itself (commercially available form [VR&D](http://www.vrand.com)).  A Python wrapper for DOT is provided that will allow the user to call the DOT shared library from Python.  Because DOT is a commercial optimizer, a license is required to use it.
+- The DOT optimizer itself (commercially available form [VR&D](http://www.vrand.com)). A Python wrapper for DOT is provided that will allow the user to call the DOT shared library from Python.  Because DOT is a commercial optimizer, a license is required to use it.
+- The addtional [libmmd.dll](https://github.com/MODRG/DOTWrapper/blob/master/libmmd.dll) file
 - [NumPy](http://www.numpy.org/) Python library
 
 
 # File description
-| File        | Description  |
-| ------------- |-------------|
-| [dot.py](https://github.com/MODRG/DOTWrapper/blob/master/dot.py)  | The Python wrapper for DOT |
-| [dot.pdf](https://github.com/MODRG/DOTWrapper/blob/master/dot.pdf) | The DOT manual |
+| File                                                                             | Description                                                               |
+|----------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| [dot.py](https://github.com/MODRG/DOTWrapper/blob/master/dot.py)                 | The Python wrapper for DOT                                                |
+| [libmmd.dll](https://github.com/MODRG/DOTWrapper/blob/master/libmmd.dll)         | Additional library file required to use DOT                               |
+| [dot.pdf](https://github.com/MODRG/DOTWrapper/blob/master/dot.pdf)               | The DOT manual                                                            |
 | [box_example.py](https://github.com/MODRG/DOTWrapper/blob/master/box_example.py) | The first example problem from the DOT manual, using the provided wrapper |
 
 # Getting started
@@ -53,30 +55,37 @@ Here is a step by sep Procedure for installing and setting up Dot on windows. If
     3. Select you desired install. (this step-by-step guide used the 'typical' option)
     4. Select your desired destination folder, or just use the default.
     5. Finish the installation.
+    6. Add the libmmd.dll file to the DOT installation folder (C:\Program Files (x86)\vrand\dot6.0\Win64)
 
 There are three different methods for linking python with dot. Here are the three different methods.The first method is recommended. But does not always work.
 
 ## Method 1
 
-1. Place the dot shared library (.dll) in your system path.
+Place the dot shared library (.dll) in your system path.
 ```
 The path should be (depending on what you used for step 4. above) --> C:\Program Files (x86)\vrand\dot6.0\Win64
 ```
+
+Place the additional dynamic link library file [libmmd.dll](https://github.com/MODRG/DOTWrapper/blob/master/libmmd.dll) into the DOT install directory.
+```
+Place libmmd.dll into --> C:\Program Files (x86)\vrand\dot6.0\Win64
+```
+
 To place the dot shared library in your path you need to take the following steps.
 ```
 1. Open start menu and type **environment**. Then click the option to: **Edit the system environment variables**.
 2. In the window that opens, click **Environment Variables** near the bottom of the the page.
 3. In the System variables section, scroll to find *PATH* and click on it.
 4. Click Edit.. just below the System variables section.
-5. On thr right hand side of the popup click New.
+5. On the right hand side of the popup click New.
 6. Paste the path (as found previously.) in this new entry.
 7. Click Ok.
 ```
 ## Method 2
 
-Copy the dll files into your python environment.
+Copy the DLL files into your python environment.
 ```
-The dll files are located at: C:\Program Files (x86)\vrand\dot6.0\Win64
+The DLL files are located at --> C:\Program Files (x86)\vrand\dot6.0\Win64
 ```
 To find your python environment location
 ```
@@ -85,16 +94,17 @@ To find your python environment location
 3. type import sys -> press enter.
 4. type sys.path -> press enter.
 5. In the text that shows up look for the DLLs file path. 
-6. Copy the dll files into the environment dll location.
-7. To close python in the command prompt.
+6. Copy the DLL files into the environment DLL location.
+7. Add the additional libmmd.dll file into the environment DLL folder.
+8. To close python in the command prompt.
     type exit() -> press enter.
 ```
 
 ## Method 3
 
-If both of the above steps do not work, you can hardcode the dll file location into your python code. (Thanks to SB Chung for figuring this out)
+If both of the above steps do not work, you can hardcode the DLL file location into your python code. (Thanks to SB Chung for figuring this out)
 ```
-1. Find where dot.dll is located on your pc. It should be something similar to:  C:\\Program Files (x86)\vrand\dot6.0\Win64\DOT.dll
+1. Find where DOT.dll is located on your pc. It should be something similar to:  C:\\Program Files (x86)\vrand\dot6.0\Win64\DOT.dll
 2. Open the dot.py file and locate the line containing: self.dotlib = ct.windll.LoadLibrary("DOT.dll")
 3. Replace --> ("DOT.dll"), with --> (r"C:\Program Files (x86)\vrand\\dot6.0\Win64\DOT.dll") or the equivalent on your PC.
 ```
